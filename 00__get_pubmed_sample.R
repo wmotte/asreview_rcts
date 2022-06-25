@@ -16,8 +16,8 @@ library( "rentrez" )
 ##
 get_pmids <- function()
 {
-    # 155,863 results on 25 June 2022
-    term <- 'all[sb] AND 2022/01/01:2022/01/01[dp] AND hasabstract'
+    # prior covid
+    term <- 'all[sb] AND 2018/01/01:2018/01/01[dp] AND hasabstract'
     
     # get 30,000 records
     results <- rentrez::entrez_search( "pubmed", term = term, retmax = 30000 )
@@ -87,9 +87,20 @@ dir.create( outdir, showWarnings = FALSE )
 pmids <- get_pmids()
 
 # get 5,000 tiabs
-tiabs <- get_tiab( pmids[ 1:5000 ] )
+table_df <- get_tiab( pmids[ 1:5000 ] )
+
+# fix explicit double quote in titles and abstracts
+table_df$title <- gsub( '\"', '', table_df$title )
+table_df$abstract <- gsub( '\"', '', table_df$abstract )
+
+# remove empty titles
+table_df <- table_df[ table_df$title != '', ]
+table_df <- table_df[ table_df$abstract != '', ]
+
+dim( table_df )
 
 # write to disk
-readr::write_tsv( tiabs, file = paste0( outdir, '/tiabs_5000.tsv' ) )
+readr::write_tsv( table_df, file = paste0( outdir, '/tiabs_5000__2019.tsv' ) )
+
 
 
