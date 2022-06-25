@@ -16,3 +16,7 @@ Identify PubMed abstracts focussed on humans
 > Only select explicit meta-analysis studies. Exclude systematic reviews without meta-analysis.
 > 10 min. 320 labels.
 
+### Project: 'Systamatic reviews only'
+
+> Only select explicit systematic reviews. Exclude normal reviews or protocols of systematic reviews.
+
