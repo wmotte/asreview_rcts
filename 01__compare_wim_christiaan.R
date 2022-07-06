@@ -13,7 +13,7 @@ get_kappa <- function( response, pred_bin )
     kappaLower <- ck$confid[ 'unweighted kappa', 'lower' ]
     kappaUpper <- ck$confid[ 'unweighted kappa', 'upper' ]
     
-    out <- cbind( kappaMean = round( kappaMean, 3 ), kappaLower = round( kappaLower, 3 ), kappaUpper = round( kappaUpper, 3 ) )
+    out <- cbind( n = length( response ), kappaMean = round( kappaMean, 3 ), kappaLower = round( kappaLower, 3 ), kappaUpper = round( kappaUpper, 3 ) )
     
     rownames( out ) <- NULL
     out <- data.frame( out )
@@ -56,7 +56,7 @@ get_kappa_data <- function( type )
     res <- get_kappa( out$included_c, out$included_w )
     res$type <- type
     
-    final <- list( res = res, m = m ) 
+    final <- list( res = res, out = out ) 
     
     return( final )
 }
@@ -65,11 +65,34 @@ get_kappa_data <- function( type )
 #
 ################################################################################
 
+# outdir
+outdir <- 'out.01.compare'
+dir.create( outdir, showWarnings = FALSE )
+
 
 m_final <- get_kappa_data( type = 'meta-analysis-only' )
 s_final <- get_kappa_data( type = 'systematic-reviews-only' )
 r_final <- get_kappa_data( type = 'rodent-studies-only' )
 
+# combine
 res <- rbind( m_final$res, s_final$res, r_final$res )
 
+# write to file
+readr::write_tsv( res, file = paste0( outdir, '/kappas_w_c.tsv' ) )
+
+# write disagreements to file
+
+# n = 7 disagreements
+dim( disagreements_m <- m_final$out[ m_final$out$included_c != m_final$out$included_w, ] )
+
+# n = 32 disagreements
+dim( disagreements_s <- s_final$out[ s_final$out$included_c != s_final$out$included_w, ] )
+
+# n = 46 disagreements
+dim( disagreements_r <- r_final$out[ r_final$out$included_c != r_final$out$included_w, ] )
+
+# write to file
+readr::write_tsv( disagreements_m, file = paste0( outdir, '/disagreements_w_c__meta-analysis.tsv' ) )
+readr::write_tsv( disagreements_s, file = paste0( outdir, '/disagreements_w_c__systematic-reviews.tsv' ) )
+readr::write_tsv( disagreements_r, file = paste0( outdir, '/disagreements_w_c__rodents.tsv' ) )
 

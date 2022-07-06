@@ -8,4 +8,6 @@ library( 'tidymodels' )
 library( 'tidytext' )
 
 set.seed( 1234 )
-theme_set(theme_minimal())
+theme_set( theme_minimal() )
+
+
