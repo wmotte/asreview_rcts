@@ -1,22 +1,45 @@
 # asreview_humans
-Identify PubMed abstracts focussed on humans
-
-> Exclude protocols
-> Exclude reviews
-> Exclude animal studies
 
 
-### Project: 'Rodent studies only'
+### 1. Systamatic reviews
 
-> Only select studies with primary rat/mice/rodent participants. Exclude 100% human studies, reviews, etc.
-> 15 min. 293 labels.
+> Only select explicit systematic reviews. 
+> Exclude normal reviews. 
+> Exclude protocols.
 
-### Project: 'Meta-analysis only'
+
+### 2. Meta-analysis
 
 > Only select explicit meta-analysis studies. Exclude systematic reviews without meta-analysis.
-> 10 min. 320 labels.
 
-### Project: 'Systamatic reviews only'
 
-> Only select explicit systematic reviews. Exclude normal reviews or protocols of systematic reviews.
+### 3. Rodents
+
+> Only select studies with primary rat/mice/rodent participants. Exclude 100% human studies, reviews, etc.
+
+
+### 4. Human-centered studies only
+
+> Including systematic reviews - with or without meta-analysis - if human-centered.
+> case-control, single reports, observational studies, cohorts, trials, fundamental studies in human participants (questionnaires, fMRI, ...)
+
+
+### 5. Trials
+
+> Always an intervention.
+> Humans only (i.e., no rodent intervention studies).
+> Randomization/blinding not essential (e.g., open trial).
+
+
+### 6. Randomized trials
+
+> Always an intervention.
+> Humans only (i.e., no rodent intervention studies).
+> Randomization essential.
+
+
+### 7. Children only [0-18]
+
+> including (systematic) reviews.
+> no animal studies in 'child' age ranges.
 
