@@ -1,0 +1,10 @@
+from sklearn.naive_bayes import MultinomialNB
+
+internal function: predict_proba( X )
+
+so, 
+
+1. initiate new MultinomialNB() as nb_model 
+2. load X
+3. load y
+4. nb_model.fit( X, y )
