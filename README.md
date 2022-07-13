@@ -43,3 +43,11 @@
 > including (systematic) reviews.
 > no animal studies in 'child' age ranges.
 
+
+### 8. Protocols only
+
+> Protocol/design/rationale
+> Human studies only
+> Protocols for reviews, analyses, and meta-analysis can be included
+
+
