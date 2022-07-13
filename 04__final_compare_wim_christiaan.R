@@ -78,8 +78,13 @@ get_kappa_data <- function( type )
     # get total disagreement
     res$n_disagree <- sum( out$included_c != out$included_w )
     
+    # pmids only
+    m_clean <- m
+    m_clean$abstract <- NULL
+    m_clean$title <- NULL
+    
     # into list
-    final <- list( res = res, out = out ) 
+    final <- list( m = m, m_clean = m_clean, res = res, out = out ) 
     
     return( final )
 }
@@ -109,6 +114,16 @@ res <- rbind( s_final$res,
 
 # write to file
 readr::write_tsv( res, file = paste0( outdir, '/kappas_w_c.tsv' ) )
+
+# write full data
+readr::write_tsv( s_final$m_clean, file = paste0( outdir, '/df__systematic-reviews-only.tsv' ) )
+readr::write_tsv( m_final$m_clean, file = paste0( outdir, '/df__meta-analysis-only.tsv' ) )
+readr::write_tsv( r_final$m_clean, file = paste0( outdir, '/df__rodent-studies-only.tsv' ) )
+readr::write_tsv( h_final$m_clean, file = paste0( outdir, '/df__human-studies-only.tsv' ) )
+readr::write_tsv( t_final$m_clean, file = paste0( outdir, '/df__trials-only.tsv' ) )
+readr::write_tsv( rt_final$m_clean, file = paste0( outdir, '/df__randomised-trials-only.tsv' ) )
+readr::write_tsv( c_final$m_clean, file = paste0( outdir, '/df__children-only.tsv' ) )
+readr::write_tsv( p_final$m_clean, file = paste0( outdir, '/df__protocols-only.tsv' ) )
 
 ##############################
 # write disagreements to file
@@ -148,5 +163,3 @@ readr::write_tsv( disagreements_t, file = paste0( outdir, '/disagreements_w_c__t
 readr::write_tsv( disagreements_rt, file = paste0( outdir, '/disagreements_w_c__randomised-trials.tsv' ) )
 readr::write_tsv( disagreements_c, file = paste0( outdir, '/disagreements_w_c__child.tsv' ) )
 readr::write_tsv( disagreements_p, file = paste0( outdir, '/disagreements_w_c__protocols.tsv' ) )
-
-
