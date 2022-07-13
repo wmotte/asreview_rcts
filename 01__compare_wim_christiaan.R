@@ -73,9 +73,10 @@ dir.create( outdir, showWarnings = FALSE )
 m_final <- get_kappa_data( type = 'meta-analysis-only' )
 s_final <- get_kappa_data( type = 'systematic-reviews-only' )
 r_final <- get_kappa_data( type = 'rodent-studies-only' )
+h_final <- get_kappa_data( type = 'human-studies-only' )
 
 # combine
-res <- rbind( m_final$res, s_final$res, r_final$res )
+res <- rbind( m_final$res, s_final$res, r_final$res, h_final$res )
 
 # write to file
 readr::write_tsv( res, file = paste0( outdir, '/kappas_w_c.tsv' ) )
@@ -91,8 +92,13 @@ dim( disagreements_s <- s_final$out[ s_final$out$included_c != s_final$out$inclu
 # n = 46 disagreements
 dim( disagreements_r <- r_final$out[ r_final$out$included_c != r_final$out$included_w, ] )
 
+# n = 27 disagreements
+dim( disagreements_h <- h_final$out[ h_final$out$included_c != h_final$out$included_w, ] )
+
+
 # write to file
 readr::write_tsv( disagreements_m, file = paste0( outdir, '/disagreements_w_c__meta-analysis.tsv' ) )
 readr::write_tsv( disagreements_s, file = paste0( outdir, '/disagreements_w_c__systematic-reviews.tsv' ) )
 readr::write_tsv( disagreements_r, file = paste0( outdir, '/disagreements_w_c__rodents.tsv' ) )
+readr::write_tsv( disagreements_h, file = paste0( outdir, '/disagreements_w_c__human.tsv' ) )
 
