@@ -3,3 +3,4 @@ n	kappaMean	kappaLower	kappaUpper	type
 354	0.778	0.706	0.85	systematic-reviews-only
 403	0.77	0.707	0.832	rodent-studies-only
 2267	0.97	0.959	0.981	human-studies-only
+130	0.898	0.799	0.996	protocols-only
