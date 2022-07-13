@@ -3,6 +3,7 @@ n	kappaMean	kappaLower	kappaUpper	type	n_disagree
 83	0.829	0.708	0.95	meta-analysis-only	7
 403	0.77	0.707	0.832	rodent-studies-only	46
 2267	0.97	0.959	0.981	human-studies-only	27
+321	0.361	0.261	0.462	trials-only	91
 218	0.767	0.651	0.884	randomised-trials-only	14
 660	0.788	0.739	0.836	children-only	66
 130	0.898	0.799	0.996	protocols-only	4

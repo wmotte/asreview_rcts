@@ -71,11 +71,10 @@ s_final <- get_kappa_data( type = 'systematic-reviews-only' )
 m_final <- get_kappa_data( type = 'meta-analysis-only' )
 r_final <- get_kappa_data( type = 'rodent-studies-only' )
 h_final <- get_kappa_data( type = 'human-studies-only' )
-# TODO
+t_final <- get_kappa_data( type = 'trials-only' )
 rt_final <- get_kappa_data( type = 'randomised-trials-only' )
 c_final <- get_kappa_data( type = 'children-only' )
 p_final <- get_kappa_data( type = 'protocols-only' )
-
 
 # combine
 res <- rbind( s_final$res, m_final$res, r_final$res, h_final$res, 
@@ -100,8 +99,8 @@ dim( disagreements_r <- r_final$out[ r_final$out$included_c != r_final$out$inclu
 # 4) n = 27 disagreements
 dim( disagreements_h <- h_final$out[ h_final$out$included_c != h_final$out$included_w, ] )
 
-# 5) ...
-# TODO
+# 5) n = 91 disagreements
+dim( disagreements_t <- t_final$out[ t_final$out$included_c != t_final$out$included_w, ] )
 
 # 6) n = 14 disagreements
 dim( disagreements_rt <- rt_final$out[ rt_final$out$included_c != rt_final$out$included_w, ] )
@@ -118,7 +117,7 @@ readr::write_tsv( disagreements_s, file = paste0( outdir, '/disagreements_w_c__s
 readr::write_tsv( disagreements_m, file = paste0( outdir, '/disagreements_w_c__meta-analysis.tsv' ) )
 readr::write_tsv( disagreements_r, file = paste0( outdir, '/disagreements_w_c__rodents.tsv' ) )
 readr::write_tsv( disagreements_h, file = paste0( outdir, '/disagreements_w_c__human.tsv' ) )
-# TODO
+readr::write_tsv( disagreements_t, file = paste0( outdir, '/disagreements_w_c__trials.tsv' ) )
 readr::write_tsv( disagreements_rt, file = paste0( outdir, '/disagreements_w_c__randomised-trials.tsv' ) )
 readr::write_tsv( disagreements_c, file = paste0( outdir, '/disagreements_w_c__child.tsv' ) )
 readr::write_tsv( disagreements_p, file = paste0( outdir, '/disagreements_w_c__protocols.tsv' ) )
