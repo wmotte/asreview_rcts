@@ -75,6 +75,20 @@ get_tiab <- function( pmids )
     return( all )
 } 
 
+###
+# Get gold data
+## 
+get_gold_data <- function( keepname )
+{
+    gold <- na.omit( read.csv( '../out.05.prepare.full.set/full_labeled.tsv.gz', sep = '\t' ) )
+    gold$text <- NULL
+    
+    to_keep <- c( 'pmid', 'title', 'abstract', keepname )
+    out <- gold[ , to_keep ]
+    colnames( out ) <- c( 'pmid', 'title', 'abstract', 'included' )
+    return( out )
+}
+
 ################################################################################
 # END FUNCTIONS
 ################################################################################
@@ -130,13 +144,13 @@ df <- table_df[ table_df$title != '', ]
 df <- table_df[ table_df$abstract != '', ]
 df <- na.omit( df )
 
+# remove 'empty' abstracts (e.g., DOI re-refs).
 df$n_words <- stringr::str_count( df$abstract, ' ' ) + 1
-
 df <- df[ df$n_words > 100, ]
 
 summary( df$n_words )
 dim( df )
-
+df$n_words <- NULL
 # write
 #               class  n    ratio req_sample_size
 # 1 systematic_review 93 2.688172            8440
@@ -144,8 +158,39 @@ dim( df )
 # 3             trial 81 3.086420           10432
 # 4  randomized_trial 39 6.410256           27051
 # 5          protocol 28 8.928571           39642
-write.csv( df[ 1:8500, ], file = gzfile( paste0( outdir, '/data__systematic_review.csv.gz' ) ) )
-write.csv( df[ 1:26300, ], file = gzfile( paste0( outdir, '/data__meta_analysis.csv.gz' ) ) )
-write.csv( df[ 1:10500, ], file = gzfile( paste0( outdir, '/data__trial.csv.gz' ) ) )
-write.csv( df[ 1:27100, ], file = gzfile( paste0( outdir, '/data__randomized_trial.csv.gz' ) ) )
-write.csv( df[ 1:39700, ], file = gzfile( paste0( outdir, '/data__protocol.csv.gz' ) ) )
+df_sr <- df[ 1:8500, ]
+df_sr$included <- NA
+
+df_meta <- df[ 1:26300, ]
+df_meta$included <- NA
+
+df_trial <- df[ 1:10500, ]
+df_trial$included <- NA
+
+df_rct <- df[ 1:27100, ]
+df_rct$included <- NA
+
+df_prot <- df[ 1:39700, ]
+df_prot$included <- NA
+
+# combine with previously labeled 5000 'gold'
+df_sr_all <- rbind( get_gold_data( 'systematic_review' ), df_sr )
+df_meta_all <- rbind( get_gold_data( 'meta_analysis' ), df_meta )
+df_trial_all <- rbind( get_gold_data( 'trial' ), df_trial )
+df_rct_all <- rbind( get_gold_data( 'randomized_trial' ), df_rct )
+df_prot_all <- rbind( get_gold_data( 'protocol' ), df_prot )
+
+# check
+summary( as.factor( df_sr_all$included ) )
+summary( as.factor( df_meta_all$included ) )
+summary( as.factor( df_trial_all$included ) )
+summary( as.factor( df_rct_all$included ) )
+summary( as.factor( df_prot_all$included ) )
+
+
+write.csv( df_sr_all, file = gzfile( paste0( outdir, '/data__systematic_review.csv.gz' ) ) )
+write.csv( df_meta_all, file = gzfile( paste0( outdir, '/data__meta_analysis.csv.gz' ) ) )
+write.csv( df_trial_all, file = gzfile( paste0( outdir, '/data__trial.csv.gz' ) ) )
+write.csv( df_rct_all, file = gzfile( paste0( outdir, '/data__randomized_trial.csv.gz' ) ) )
+write.csv( df_prot_all, file = gzfile( paste0( outdir, '/data__protocol.csv.gz' ) ) )
+
