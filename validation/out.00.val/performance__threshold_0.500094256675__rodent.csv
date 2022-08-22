@@ -1,0 +1,2 @@
+"","label","aucMean","aucLower","aucUpper","thres_value","N","TP","TN","FP","FN","baccMean","baccLower","baccUpper","accMean","accLower","accUpper","sensMean","sensLower","sensUpper","specMean","specLower","specUpper","ppvMean","ppvLower","ppvUpper","npvMean","npvLower","npvUpper"
+"1","rodent",1,1,1,0.500094256675,160,27,133,0,0,1,1,1,1,0.977,1,1,1,1,1,1,1,1,1,1,1,1,1

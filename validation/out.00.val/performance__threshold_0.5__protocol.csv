@@ -1,0 +1,2 @@
+"","label","aucMean","aucLower","aucUpper","thres_value","N","TP","TN","FP","FN","baccMean","baccLower","baccUpper","accMean","accLower","accUpper","sensMean","sensLower","sensUpper","specMean","specLower","specUpper","ppvMean","ppvLower","ppvUpper","npvMean","npvLower","npvUpper"
+"1","protocol",0.993,0.982,1,0.5,160,26,131,1,2,0.96,0.905,1.016,0.981,0.946,0.996,0.929,0.833,1.024,0.992,0.978,1.007,0.963,0.892,1.034,0.985,0.964,1.006

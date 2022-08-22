@@ -1,0 +1,2 @@
+"","label","aucMean","aucLower","aucUpper","thres_value","N","TP","TN","FP","FN","baccMean","baccLower","baccUpper","accMean","accLower","accUpper","sensMean","sensLower","sensUpper","specMean","specLower","specUpper","ppvMean","ppvLower","ppvUpper","npvMean","npvLower","npvUpper"
+"1","meta_analysis",0.982,0.964,1,0.5,160,31,125,4,0,0.984,0.97,0.999,0.975,0.937,0.993,1,1,1,0.969,0.939,0.999,0.886,0.78,0.991,1,1,1
